@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>KF's Basic WeatherApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="scss/style.css" />
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="#"><h1 class="brand">KF's WeatherApp</h1></a>
+        <nav class="main-nav">
+          <div class="auth-buttons">
+            <a href="accountAuth/signup.html"
+              ><button id="signupBtn">Sign Up</button></a
+            >
+            <a href="accountAuth/login.html"
+              ><button id="loginBtn">Login</button></a
+            >
+          </div>
+          <img
+            id="darkModeToggle"
+            src="contrast.png"
+            alt="Toggle Dark Mode"
+            title="Toggle Dark Mode"
+          />
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="search-section">
+        <form id="searchForm" aria-label="Search weather by city or zip">
+          <label for="locationInput">City or ZIP:</label>
+          <input
+            id="locationInput"
+            name="location"
+            type="text"
+            placeholder="e.g. Indianapolis or 46202"
+            required
+          />
+          <button type="button" id="openDateRangeBtn">Select Date Range</button>
+
+          <div class="calendarSelect">
+            <div class="card-modal">
+              <h3>Select Date Range</h3>
+              <label for="fromDate">From:</label>
+              <input type="date" id="fromDate" name="fromDate" required />
+
+              <label for="toDate">To:</label>
+              <input type="date" id="toDate" name="toDate" required />
+              <div class="modal-buttons">
+                <button type="button" id="getRangeBtn">Go</button>
+                <button type="button" id="closeDateRangeBtn">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div id="feedback" aria-live="polite"></div>
+      </section>
+      <section id="currentWeatherSection"></section>
+      <section id="resultSection"></section>
+    </main>
+
+    <footer class="container">
+      <p>Thanks for checking out my app!</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,421 @@
+// variables
+$bg: #f6f8fb;
+$card-bg: #ffffff;
+$primary: #4a90e2;
+$text: #222;
+$muted: #666;
+$radius: 10px;
+$input-dark-bg: #2f2f2f;
+$label-dark-color: #f5f5f5;
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  font-family: "Inter", system-ui, Arial, sans-serif;
+  background: $bg;
+  color: $text;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  &:hover { text-decoration: underline; }
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+// Header
+.site-header {
+  background: $card-bg;
+  border-bottom: 1px solid #e6e9ef;
+
+  .container { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+  .brand { margin:0; font-size:1.4rem; color:$primary; }
+  
+  .main-nav {
+    display:flex;
+    gap:0.75rem;
+    align-items:center;
+    
+    a { text-decoration:none; color:$muted; } 
+
+    .auth-buttons button { margin-left:0.5rem; } 
+
+    #darkModeToggle { 
+      margin-left:1rem; 
+      background:white;  
+      border:none; 
+      border-radius:6px; 
+      padding:0.5rem 1rem; 
+      cursor:pointer; 
+      font-weight:600;
+      transition: background 0.3s;
+      &:hover { background: darken(white, 10%); }
+      width:50px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-buttons button{
+    width:100%;
+    margin:5px;
+  }}
+
+// Location & date search
+.search-section {
+  margin-top:1.25rem;
+
+  form { 
+    display:flex; 
+    flex-wrap:wrap; 
+    gap:.5rem; 
+    align-items:center; 
+    input, select { padding:.5rem; border-radius:6px; border:1px solid #d7dbe6; } 
+    button { background:$primary; color:white; padding:.6rem 1rem; border:none; border-radius:6px; cursor:pointer; } 
+  }
+
+  #feedback { margin-top:.5rem; color:$muted; }
+}
+
+#searchForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+
+  input, button[type="button"] {
+    width: 80%;
+    max-width: 350px;
+  }
+
+  #openDateRangeBtn {
+    margin-top: 0.5rem;
+    align-self: center;
+    background: $primary;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.65rem 1.2rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+
+    &:hover { background: darken($primary, 10%); }
+  }
+}
+
+input#fromDate,
+input#toDate { width: 100%; }
+
+.center-box {
+  margin: 1rem auto;
+  max-width: 720px;
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(20,30,40,0.06);
+  text-align: left;
+}
+
+
+
+.daily-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: .75rem;
+  margin-top:.75rem;
+}
+
+.daily-card {
+  padding: 1.5em;
+  border-radius:8px;
+  background: $card-bg;
+  border:1px solid #eef2f7;
+}
+
+
+
+.small { font-size:.9rem; color:$muted; }
+
+// Calendar
+.calendarSelect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .card-modal {
+    background: $card-bg;
+    border-radius: $radius;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+
+    h3 { margin-top: 0; font-size: 1.25rem; color: $primary; text-align: center; }
+    label { font-weight: bold; margin-bottom: 0.25rem; }
+    input[type="date"] { padding: 0.5rem; border-radius: 6px; border: 1px solid #d7dbe6; width: 100%; }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+
+      button {
+        flex: 1;
+        background: $primary;
+        color: white;
+        padding: 0.6rem 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+        &:hover { background: darken($primary, 10%); }
+      }
+    }
+  }
+}
+
+body.modal-active { overflow: hidden; }
+
+// button styles
+.auth-buttons button,
+button { 
+  background: $primary; 
+  color: white; 
+  border: none; 
+  border-radius: 6px; 
+  padding: 0.5rem 1rem; 
+  cursor: pointer; 
+  font-weight: 600; 
+  transition: background 0.3s;
+
+  &:hover { background: darken($primary, 10%); }
+}
+
+// current weather
+.current-card {
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  padding: .75rem;
+  border-radius:8px;
+  background:#f8fbff;
+}
+.currentWeatherContainer {
+  margin-top: 1rem;
+  max-width: 720px;
+  background: $card-bg;
+  border-radius: $radius;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(20,30,40,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  h2 { margin: 0; font-size: 1.5rem; color: $primary; text-align: center; }
+  p { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; font-size: 1.1rem; text-align: center; }
+  ul { list-style: none; padding: 0; margin: 0.5rem 0 0 0;
+    li { padding: 0.25rem 0; border-bottom: 1px solid #eef2f7; &:last-child { border-bottom: none; } }
+  }
+}
+
+.weatherHeading {
+  display: flex;
+  align-items: center; // vertically center image and text
+  gap: 0.5rem;         // space between icon and text
+  font-weight: bold;    // make text bold
+
+  img {
+    width: 40px;        // adjust icon size as needed
+    height: 40px;
+    object-fit: contain;
+  }
+}
+
+
+// Light/dark mode styles
+body.light-mode {
+  background: $bg;
+  color: $text;
+
+  .site-header, .center-box, .currentWeatherContainer, .daily-card, .card-modal {
+    background: $card-bg;
+    color: $text;
+  }
+
+  input, select { background: white; color: $text; border: 1px solid #d7dbe6; }
+  label { color: $text; }
+  button { background: $primary; color: white; &:hover { background: darken($primary, 10%); } }
+}
+
+body.dark-mode {
+  background: #121212;
+  color: #e6e6e6;
+
+    h1, h2, h3, h4, h5, h6, p, li, label {
+    color: #e6e6e6;
+  }
+
+  .brand {
+    color: lighten($primary, 20%);
+  }
+
+  a {
+    color: lighten($primary, 10%);
+  }
+
+  .site-header, .center-box, .currentWeatherContainer, .daily-card, .card-modal {
+    background: #1e1e1e;
+    color: #e6e6e6;
+    border-color: #333;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  }
+
+  input, input[type="date"], select {
+    background: $input-dark-bg;
+    color: white;
+    border: 1px solid #444;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+
+  input::placeholder,
+  textarea::placeholder,
+  input[type="date"]::placeholder {
+    color: rgba(255, 255, 255, 0.8); // slightly brighter placeholder
+  }
+
+  label { color: $label-dark-color; }
+  
+  button { 
+    background: $primary;
+    color: white;
+    &:hover { background: lighten($primary, 10%); } 
+  }
+
+  main.container, footer.container { background: #121212; }
+}
+
+// login/signup styles
+.login-container, .signup-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+
+  .login-image, .signup-image {
+    flex: 1;
+    overflow: hidden;
+    max-width:50%;
+    height: 100vh;
+    img { width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  .login-form-card, .signup-form-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $card-bg;
+    padding: 2rem;
+    border-radius: $radius;
+    box-shadow: 0 6px 18px rgba(20,30,40,0.06);
+    max-width: 400px;
+    margin: auto;
+
+    h2 { color: lighten($primary, 10%); margin-bottom: 1.5rem; text-align: center; }
+
+    form { display: flex; flex-direction: column; width: 100%; gap: 0.75rem;
+      label { font-weight: bold; }
+      input { padding: 0.6rem; border-radius: 6px; border: 1px solid #d7dbe6; background: white; color: $text; }
+      button { margin-top: 0.75rem; background: $primary; color: white; border: none; border-radius: 6px; padding: 0.7rem 1rem; cursor: pointer; font-weight: 600; transition: background 0.3s; &:hover { background: darken($primary, 10%); } }
+    }
+
+    .small { margin-top: 1rem; text-align: center; font-size: 0.9rem;
+      a { color: lighten($primary, 10%); text-decoration: none; &:hover { text-decoration: underline; } }
+    }
+  }
+}
+
+body.dark-mode {
+  .login-form-card, .signup-form-card {
+    background: #313131;
+    input { background: $input-dark-bg; color: white; border: 1px solid #444; }
+    label { color: $label-dark-color; }
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-container, .signup-container {
+    flex-direction: column-reverse;
+
+    .login-image, .signup-image {
+      display: none; 
+    }
+
+    .login-form-card, .signup-form-card {
+      width: 90%;
+      margin: 1rem auto;
+      background-color: rgba(255, 255, 255, 0.85);
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      border-radius: $radius;
+      box-shadow: 0 6px 18px rgba(20,30,40,0.06);
+      backdrop-filter: blur(5px);
+    }
+
+    .login-container, .signup-container {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+
+body.dark-mode {
+  .login-form-card, .signup-form-card {
+    background: #313131;
+    input { background: $input-dark-bg; color: white; border: 1px solid #444; }
+    label { color: $label-dark-color; }
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container, .signup-container {
+    flex-direction: column-reverse;
+    .login-image, .signup-image { width: 100%; height: 200px; }
+    .login-form-card, .signup-form-card { width: 90%; margin: 1rem auto; }
+  }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Login | WeatherApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../scss/style.css">
+  <script src="../js/app.js" defer></script>
+</head>
+<body class="light-mode">
+  <main class="login-container">
+    <div class="login-image">
+    <img 
+    id="loginImg" 
+    class="theme-switch-image" 
+    data-light="../bg.jpeg" 
+    data-dark="../dm_bg.jpeg" 
+    src="../bg.jpeg" 
+    alt="Login Image">
+
+    </div>
+    <div class="login-form-card">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter email" required>
+
+        <button type="submit">Login</button>
+      </form>
+      <p class="small">Don't have an account? <a href="signup.html">Sign up here!</a></p>
+      <a href="../index.html">Continue as guest</a></p>
+    </div>
+  </main>
+</body>
+</html>
